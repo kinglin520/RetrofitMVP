@@ -2,7 +2,6 @@ package com.example.dream.retrofitrxjavaokhttpdemo.api;
 
 
 import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseBean;
-import com.example.dream.retrofitrxjavaokhttpdemo.bean.BaseGankResponse;
 import com.example.dream.retrofitrxjavaokhttpdemo.bean.GirlInfoBean;
 import com.example.dream.retrofitrxjavaokhttpdemo.bean.UserInfoBean;
 

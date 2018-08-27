@@ -40,16 +40,16 @@ public class ErrorCode {
     public static final int CODE_SERVER_1107 = 1107;
 
     public static final int CODE_SERVER_1200 = 1200;
-
-    public static final int CODE_SERVER_9105 = 9105;  //token失效
-
-    public static final int CODE_SERVER_9106 = 9106; //临时token失效
-
-    public static final int CODE_SERVER_9107 = 9107; //多设备登录
-
-    public static final int CODE_SERVER_9108 = 9108; //账户被冻结
-
-    public static final int CODE_SERVER_9109 = 9109; //服务器维护中
+    //token失效
+    public static final int CODE_SERVER_9105 = 9105;
+    //临时token失效
+    public static final int CODE_SERVER_9106 = 9106;
+    //多设备登录
+    public static final int CODE_SERVER_9107 = 9107;
+    //账户被冻结
+    public static final int CODE_SERVER_9108 = 9108;
+    //服务器维护中
+    public static final int CODE_SERVER_9109 = 9109;
 
 
     //http 错误码

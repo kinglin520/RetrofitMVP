@@ -49,8 +49,8 @@ public class ExceptionConverter {
                     errorType=ErrorType.ERROR_HTTP;
                     errorCode= ErrorCode.CODE_NOT_FOUND;
                     break;
-                case ErrorCode.CODE_UNAUTHORIZED:                //Http码为401时需要用户重新登录，网关对用户Token进行了验证，防止多设备登录，多设备登陆时接口请求返回401码
-
+                //Http码为401时需要用户重新登录，网关对用户Token进行了验证，防止多设备登录，多设备登陆时接口请求返回401码
+                case ErrorCode.CODE_UNAUTHORIZED:
                     //401码需要获取服务器返回的数据
                     ResponseBody mResponseBody=httpException.response().errorBody();
                     try {
@@ -59,11 +59,8 @@ public class ExceptionConverter {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                     errorType=ErrorType.ERROR_HTTP;
                     errorCode= ErrorCode.CODE_UNAUTHORIZED;
-
-
                     break;
                 case ErrorCode.CODE_FORBIDDEN:
                     errorMessage = "网络错误";

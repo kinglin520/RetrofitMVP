@@ -10,9 +10,6 @@ public abstract class BasePresenter<T extends BaseView> {
     private BaseActivity mActivity;
     private BaseFragment mFragment;
 
-    public Context mContext;
-
-
     //View层
     public T mView;
     //管理Subscription,解除Rxjava订阅
