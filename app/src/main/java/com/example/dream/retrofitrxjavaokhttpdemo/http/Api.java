@@ -2,7 +2,7 @@ package com.example.dream.retrofitrxjavaokhttpdemo.http;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseApplication;
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseBean;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseBean;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.config.ApiConfig;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.config.RequestConfig;
 import com.google.gson.GsonBuilder;

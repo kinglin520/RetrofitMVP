@@ -1,4 +1,4 @@
-package com.example.dream.retrofitrxjavaokhttpdemo.base;
+package com.example.dream.retrofitrxjavaokhttpdemo.base.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

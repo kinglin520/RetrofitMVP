@@ -3,9 +3,9 @@ package com.example.dream.retrofitrxjavaokhttpdemo.base.rx;
 
 import android.text.TextUtils;
 
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseActivity;
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseBean;
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseFragment;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseActivity;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseBean;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseFragment;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.config.RequestConfig;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.error.ApiException;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.error.ErrorCode;
@@ -63,14 +63,12 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
      * @param observable
      */
     public void doSubscribe(Observable<T> observable) {
-        observable.
-                flatMap(new Function<T, ObservableSource<R>>() {
+        observable.flatMap(new Function<T, ObservableSource<R>>() {
                     @Override
                     public ObservableSource<R> apply(T t) throws Exception {
 
                         mSuccessMessage = t.getMessage();
                         mErrorData = t.getData();
-                        //接口返回1000成功码
                         if (t.getStatus() == ErrorCode.CODE_SERVER_SUCCESS) {
 //                            if (mRequestConfig != null && !TextUtils.isEmpty(mRequestConfig.getTag())) {
 //                                LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + ErrorCode.CODE_SERVER_SUCCESS);
@@ -198,12 +196,10 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
                 //向错误回调传递data字段数据
                 _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
-
             }
 
-
         } else {
-            _onError(ErrorType.ERROR_UNKNOWN, ErrorCode.CODE_UNKNOWN, "未知错误", null);
+            _onError(ErrorType.ERROR_UNKNOWN, ErrorCode.CODE_UNKNOWN, "未知错误", mErrorData);
         }
     }
 

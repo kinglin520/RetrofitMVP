@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.dream.retrofitrxjavaokhttpdemo.R;
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseActivity;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseActivity;
 import com.example.dream.retrofitrxjavaokhttpdemo.bean.GirlInfoBean;
 import com.example.dream.retrofitrxjavaokhttpdemo.bean.UserInfoBean;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.error.ErrorType;

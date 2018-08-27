@@ -1,6 +1,6 @@
 package com.example.dream.retrofitrxjavaokhttpdemo.ui.contract;
 
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseView;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseView;
 import com.example.dream.retrofitrxjavaokhttpdemo.bean.GirlInfoBean;
 import com.example.dream.retrofitrxjavaokhttpdemo.bean.UserInfoBean;
 

@@ -1,7 +1,7 @@
-package com.example.dream.retrofitrxjavaokhttpdemo.api;
+package com.example.dream.retrofitrxjavaokhttpdemo.app;
 
 
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseBean;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseBean;
 import com.example.dream.retrofitrxjavaokhttpdemo.bean.GirlInfoBean;
 import com.example.dream.retrofitrxjavaokhttpdemo.bean.UserInfoBean;
 

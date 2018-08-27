@@ -1,6 +1,4 @@
-package com.example.dream.retrofitrxjavaokhttpdemo.base;
-
-import android.content.Context;
+package com.example.dream.retrofitrxjavaokhttpdemo.base.ui;
 
 import com.example.dream.retrofitrxjavaokhttpdemo.base.rx.RxManager;
 

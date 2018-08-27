@@ -1,4 +1,4 @@
-package com.example.dream.retrofitrxjavaokhttpdemo.base;
+package com.example.dream.retrofitrxjavaokhttpdemo.base.ui;
 
 
 import com.example.dream.retrofitrxjavaokhttpdemo.http.error.ErrorType;

@@ -1,8 +1,8 @@
 package com.example.dream.retrofitrxjavaokhttpdemo.http.config;
 
 
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseBean;
-import com.example.dream.retrofitrxjavaokhttpdemo.base.BasePresenter;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseBean;
+import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BasePresenter;
 import com.example.dream.retrofitrxjavaokhttpdemo.base.rx.RxSubscriber;
 
 import io.reactivex.Observable;
