@@ -1,8 +1,10 @@
 package com.example.dream.retrofitrxjavaokhttpdemo.ui;
 
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
     @BindView(R.id.iv_girl)
     ImageView ivGirl;
     private int pageIndex = 1;
+    private GuideView guideView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,32 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
 
     @Override
     protected void initView() {
+        //文字图片
+        final ImageView iv1 = new ImageView(this);
+        iv1.setImageResource(R.mipmap.lead_arrows_2);
+        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        iv1.setLayoutParams(params1);
 
+        //我知道啦
+        final ImageView iv2 = new ImageView(this);
+        iv2.setImageResource(R.mipmap.lead_icon_pose);
+        RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        iv2.setLayoutParams(params2);
+        guideView = GuideView.Builder
+                .newInstance(this)
+                .setTargetView(btnDesc)
+                .setOffset(0,80)
+                .setShape(GuideView.MyShape.CIRCULAR)
+                .setRadius(150)
+                .setContain(false)
+                .setBgColor(getResources().getColor(R.color.half_transparent))
+                .setOnclickListener(new GuideView.OnClickCallback() {
+                    @Override
+                    public void onClickedGuideView() {
+                        guideView.hide();
+                    }
+                }).build();
+        guideView.show();
     }
 
     @Override
@@ -61,9 +89,15 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
     @Override
     public void setGirlInfo(List<GirlInfoBean> list) {
         if (list != null && list.size() > 0) {
-            Toast.makeText(this, list.get(0).getDesc(), Toast.LENGTH_SHORT).show();
             tvName.setText(list.get(0).getDesc());
             Glide.with(this).load(list.get(0).getUrl()).into(ivGirl);
+
+            String tt = "你好";
+
+            int tt2 = ((int)tt.charAt(0))%4;
+
+            Toast.makeText(this, tt+" "+tt.charAt(0)+" " +((int)tt.charAt(0))+" "+tt2, Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -75,6 +109,7 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
     @OnClick(R.id.btn_desc)
     public void onClick() {
 //        mPresenter.getUserInfo("kWg3hnwThFCThmg=");
+        guideView.show();
 
         mPresenter.getGirlInfo(String.valueOf(pageIndex++));
     }
