@@ -56,7 +56,7 @@ public class RequestConfig<R, T extends BaseBean<R>> {
 
         mRxSubscriber.setRequestConfig(this);
         mRxSubscriber.doSubscribe(mObservable);
-        mPresenter.getRxManager().add(rxSubscriber.getDisposable());
+//        mPresenter.getRxManager().add(rxSubscriber.getDisposable());
     }
 
 

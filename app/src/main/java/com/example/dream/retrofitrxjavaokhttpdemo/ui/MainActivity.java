@@ -1,6 +1,7 @@
 package com.example.dream.retrofitrxjavaokhttpdemo.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.example.dream.retrofitrxjavaokhttpdemo.R;
 import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseActivity;
@@ -46,8 +48,8 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
     }
 
     @Override
-    public void initPresenter() {
-        mPresenter.setVM(this);
+    public TestPresenter initPresenter() {
+        return new TestPresenter(this);
     }
 
     @Override
@@ -78,6 +80,13 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
                     }
                 }).build();
         guideView.show();
+
+        findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ARouter.getInstance().build("/test_test/MainActivity").navigation();
+            }
+        });
     }
 
     @Override
@@ -109,7 +118,7 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
     @OnClick(R.id.btn_desc)
     public void onClick() {
 //        mPresenter.getUserInfo("kWg3hnwThFCThmg=");
-        guideView.show();
+//        guideView.show();
 
         mPresenter.getGirlInfo(String.valueOf(pageIndex++));
     }

@@ -16,25 +16,26 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.mActivity = (BaseActivity) getActivity();
-        mPresenter = TUtil.getT(this, 0);
-        if (mPresenter != null) {
-            mPresenter.setActivity(mActivity);
-            mPresenter.setFragment(this);
-        }
-        initPresenter();
+        mPresenter = initPresenter();
+//        mPresenter = TUtil.getT(this, 0);
+//        if (mPresenter != null) {
+//            mPresenter.setActivity(mActivity);
+//            mPresenter.setFragment(this);
+//        }
+//        initPresenter();
         initView();
     }
 
     /**
      * 简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
      */
-    protected abstract void initPresenter();
+    protected abstract T initPresenter();
 
     protected abstract void initView();
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.onDestroy();
+        mPresenter.onViewDestory(this);
     }
 }

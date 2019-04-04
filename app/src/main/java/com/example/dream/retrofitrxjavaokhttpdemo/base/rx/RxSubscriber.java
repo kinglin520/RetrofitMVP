@@ -32,8 +32,8 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
      */
     private static GlobalErrorListener mGlobalErrorListener;
 
-    public BaseActivity mActivity;
-    public BaseFragment mFragment;
+//    public BaseActivity mActivity;
+//    public BaseFragment mFragment;
     private RequestConfig<R, T> mRequestConfig;
     private Disposable mDisposable;
     /**
@@ -51,8 +51,8 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
     public void setRequestConfig(RequestConfig<R, T> requestConfig) {
         this.mRequestConfig = requestConfig;
-        mActivity = requestConfig.getPresenter().getActivity();
-        mFragment = requestConfig.getPresenter().getFragment();
+//        mActivity = requestConfig.getPresenter().getActivity();
+//        mFragment = requestConfig.getPresenter().getFragment();
     }
 
     /*************************************************************************************************************************/
@@ -70,10 +70,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
                         mSuccessMessage = t.getMessage();
                         mErrorData = t.getData();
                         if (t.getStatus() == ErrorCode.CODE_SERVER_SUCCESS) {
-//                            if (mRequestConfig != null && !TextUtils.isEmpty(mRequestConfig.getTag())) {
-//                                LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + ErrorCode.CODE_SERVER_SUCCESS);
-//                            }
-
                             return Observable.just(t.getData());
                             //成功直接返回数据
 
@@ -82,18 +78,10 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
                         else if (mRequestConfig != null &&
                                 !TextUtils.isEmpty(mRequestConfig.getAsSuccessCondition())
                                 && mRequestConfig.getAsSuccessCondition().contains(t.getStatus() + "")) {
-
-//                            if (mRequestConfig != null && !TextUtils.isEmpty(mRequestConfig.getTag())) {
-//                                LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + t.getCode());
-//                            }
                             //成功直接返回数据
                             return Observable.just(t.getData());
 
                         } else {
-//                            if (mRequestConfig != null && !TextUtils.isEmpty(mRequestConfig.getTag())) {
-//                                LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + t.getCode());
-//                            }
-
                             Throwable mThrowable = new Throwable("接口返回了错误业务码-----" + t.getStatus());
 
                             throw new ApiException(t.getStatus(), ErrorType.ERROR_API, t.getMessage(), mThrowable);
@@ -115,9 +103,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
     @Override
     public void onSubscribe(@NonNull Disposable d) {
 
-//        if (mRequestConfig != null && !TextUtils.isEmpty(mRequestConfig.getTag())) {
-//            LogUtils.d(mRequestConfig.getTag(), "-----onSubscribe()");
-//        }
 
         mDisposable = d;
     }
@@ -125,20 +110,11 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
     @Override
     public void onNext(R r) {
 
-//        if (mRequestConfig != null && !TextUtils.isEmpty(mRequestConfig.getTag())) {
-//            LogUtils.d(mRequestConfig.getTag(), "-----onNext()");
-//        }
-
         mOnNextData = r;
     }
 
     @Override
     public void onError(Throwable e) {
-
-//        LogUtils.e("LogOut---onError");
-//        if (mRequestConfig != null && !TextUtils.isEmpty(mRequestConfig.getTag())) {
-//            LogUtils.d(mRequestConfig.getTag(), "-----onError()");
-//        }
 
         e.printStackTrace();
 
@@ -206,10 +182,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
     @Override
     public void onComplete() {
 
-//        if (mRequestConfig != null && !TextUtils.isEmpty(mRequestConfig.getTag())) {
-//            LogUtils.d(mRequestConfig.getTag(), "-----onComplete()");
-//        }
-
         doDispose();
 
         _onSuccess(mOnNextData, mSuccessMessage);
@@ -243,19 +215,19 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
     public static void registerGlobalErrorListener(GlobalErrorListener listener) {
         mGlobalErrorListener = listener;
     }
-
-    public BaseActivity getActivity() {
-        return mActivity;
-    }
-
-
-    public void setmActivity(BaseActivity mActivity) {
-        this.mActivity = mActivity;
-    }
-
-    public BaseFragment getFragment() {
-        return mFragment;
-    }
+//
+//    public BaseActivity getActivity() {
+//        return mActivity;
+//    }
+//
+//
+//    public void setmActivity(BaseActivity mActivity) {
+//        this.mActivity = mActivity;
+//    }
+//
+//    public BaseFragment getFragment() {
+//        return mFragment;
+//    }
 
     /**************************************************************************************************************/
 
