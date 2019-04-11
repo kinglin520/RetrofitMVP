@@ -16,6 +16,7 @@
  }
  ```
 ###### 整个网络服务请求使用时，创建被观察者-》Api.getService(LoginService.class).getToken("18518762090","111111")，并通过.doRequest订阅观察者RxSubscriber创建观察者时，指定返回Bean，在_onSuccess方法中获取请求结果在_onError处理本次请求错误响应...
+```
     /**
      * 获取Token
      */
@@ -32,6 +33,6 @@
                     }
                 });
     }
-
+```
 
 ### 2.封装MVP基类；
