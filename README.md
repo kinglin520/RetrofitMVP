@@ -37,9 +37,9 @@
 #### 最后，在项目的Application中，配置网络相关信息
 ```
         ApiConfig apiConfig = new ApiConfig();
-        apiConfig.setConnectTimeOut(100000);
-        apiConfig.setReadTimeOut(100000);
-        apiConfig.setHostServer("http://39.96.204.48:9999");
+        apiConfig.setConnectTimeOut(30000);
+        apiConfig.setReadTimeOut(30000);
+        apiConfig.setHostServer("https://www.github.com/kinlin520");
         Api.setConfig(apiConfig);
 ```
 
