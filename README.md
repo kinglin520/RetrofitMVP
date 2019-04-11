@@ -2,8 +2,8 @@
 ### 1.Retrofit封装
 ######  基于Retrofit2.3+Rxjava2.3+Okhttp3.9 封装的网络层数据操作基础架构，架构思想围绕Retrofit内部封装的RxJava响应式编程展开，并封装了完善的网络错误信息传递机制方便后期维护。封装代码清晰易读，使用上简易方便，封装框架虽瘦却扩展性很强，欢迎志同道合人士前来互相学习沟通；</br>
 #### 示例：首先创建被观察者Observable，包括：请求方式和URL，请求参数，请求返回bean...
-
- `[public interface LoginService {
+```
+   public interface LoginService {
     @GET("/message/sms")
     Observable<BaseBean> test(@Query("mobile") String mobile);
     /**
@@ -13,7 +13,8 @@
     @FormUrlEncoded
     @POST("/auth/mobile/token")
     Observable<BaseBean<TokenBean>> getToken(@Field("mobile") String mobile, @Field("code") String code);
-}]`
+ }
+ ```
 ###### 整个网络服务请求使用时，创建被观察者-》Api.getService(LoginService.class).getToken("18518762090","111111")，并通过.doRequest订阅观察者RxSubscriber创建观察者时，指定返回Bean，在_onSuccess方法中获取请求结果在_onError处理本次请求错误响应...
     /**
      * 获取Token
@@ -33,4 +34,4 @@
     }
 
 
-2.封装MVP基类；
+### 2.封装MVP基类；
