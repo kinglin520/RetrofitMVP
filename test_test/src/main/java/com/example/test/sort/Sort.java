@@ -51,6 +51,37 @@ public class Sort {
     }
 
     /**
+     * 归并排序（对两组有序数组进行合并排列）
+     */
+    private static int[] mergeSort(int[] a, int[] b) {
+        int aCount = a.length;
+        int bCount = b.length;
+        int[] c = new int[aCount + bCount];
+        int aNum = 0, bNum = 0, cNum = 0;
+        //比较a数组和b数组的元素，谁更小将谁赋值到c数组
+        while (aNum < aCount && bNum < bCount) {
+            if (a[aNum] < b[bNum]) {
+                c[cNum] = a[aNum];
+                aNum++;
+                cNum++;
+            } else {
+                c[cNum] = b[bNum];
+                bNum++;
+                cNum++;
+            }
+        }
+        //如果a数组全部赋值到c数组了，但是b数组还有元素，则将b数组剩余元素按顺序全部复制到c数组
+        while (aNum == aCount && bNum < bCount) {
+            c[cNum++] = b[bNum++];
+        }
+        //如果b数组全部赋值到c数组了，但是a数组还有元素，则将a数组剩余元素按顺序全部复制到c数组
+        while (bNum == bCount && aNum < aCount) {
+            c[cNum++] = a[aNum++];
+        }
+        return c;
+    }
+
+    /**
      * 希尔排序（特殊间隔3h+1，2H，2.2的高级插入排序）
      */
     private static int[] shellKnuthSort(int[] arr) {
@@ -175,11 +206,14 @@ public class Sort {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{2, 3, 1, 4, 6, 7, 2312, 42, 323, 23412};
+        int[] arr = new int[]{5, 7, 30, 9876};
 //        for (int i : shellKnuthSort(arr)) {
 //            System.out.print(i + ",");
 //        }
-        quickSort(arr, 0, arr.length - 1);
-        System.out.print(Arrays.toString(arr));
+//        quickSort(arr, 0, arr.length - 1);
+//        System.out.print(Arrays.toString(arr));
+        int[] brr = new int[]{3, 8, 44, 1234};
+
+        System.out.print(Arrays.toString(mergeSort(arr, brr)));
     }
 }
