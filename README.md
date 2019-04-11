@@ -1,2 +1,3 @@
-# RetrofitRxjavaOkhttpDemo
-MVP设计模式下基于Retrofit2.0+Rxjava2.0+Okhttp3.0 以上封装的网络层数据操作的瘦却扩展性大的基础demo；
+# 封装Retrofit网络架构和应用MVP模式
+1.基于Retrofit2.3+Rxjava2.3+Okhttp3.9 封装的网络层数据操作，架构思想围绕Retrofit内部封装的RxJava响应式编程展开，封装代码清晰易读，使用上简易方便，封装框架虽瘦却扩展性很强，欢迎志同道合人士前来互相学习沟通；
+2.封装MVP基类；
