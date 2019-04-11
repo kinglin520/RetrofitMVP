@@ -3,6 +3,9 @@
 示例：
 首先创建被观察者Observable，包括：请求方式和URL，请求参数，请求返回bean...
 
+
+
+/***
 public interface LoginService {
     @GET("/message/sms")
     Observable<BaseBean> test(@Query("mobile") String mobile);
@@ -14,6 +17,7 @@ public interface LoginService {
     @POST("/auth/mobile/token")
     Observable<BaseBean<TokenBean>> getToken(@Field("mobile") String mobile, @Field("code") String code);
 }
+    **/
 
 整个网络服务请求使用时，创建被观察者-》Api.getService(LoginService.class).getToken("18518762090","111111")，并通过.doRequest订阅观察者RxSubscriber创建观察者时，指定返回Bean，在_onSuccess方法中获取请求结果在_onError处理本次请求错误响应...
     /**
