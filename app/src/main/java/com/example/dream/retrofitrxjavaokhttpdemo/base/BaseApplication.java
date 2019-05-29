@@ -1,6 +1,7 @@
 package com.example.dream.retrofitrxjavaokhttpdemo.base;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.Utils;
@@ -27,6 +28,9 @@ public class BaseApplication extends Application {
 //        }
         ARouter.init(baseApplication); // As early as possible, it is recommended to initialize in the Application
 
+        // 默认设置为日间模式
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     private void initApiConfig() {

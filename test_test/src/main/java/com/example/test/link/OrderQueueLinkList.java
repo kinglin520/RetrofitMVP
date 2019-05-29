@@ -70,7 +70,7 @@ public class OrderQueueLinkList {
             preNode = current;
             current = current.next;
         }
-        if (preNode == null) {
+        if (current == head) {
             head = head.next;
             size--;
         } else {

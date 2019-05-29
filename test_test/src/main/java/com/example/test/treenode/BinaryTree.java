@@ -58,10 +58,10 @@ public class BinaryTree implements Tree {
     //插入节点（红黑树）
     public void insertRB(int data) {
         Node newNode = new Node(data);
-        Node current = null;
+        Node parent = null;
         Node x = this.root;
         while (x != null) {
-            current = x;
+            parent = x;
             //当前值比插入值小，搜索右子节点
             if (newNode.data > x.data) {
                 x = x.rightChild;
@@ -70,15 +70,15 @@ public class BinaryTree implements Tree {
             }
         }
         //找到了插入的位置，将当前current作为node的父节点
-        newNode.parent = current;
-        if (current == null) {
+        newNode.parent = parent;
+        if (parent == null) {
             this.root = newNode;
         } else {
             //大于父节点，直接插入到父右子节点
-            if (newNode.data > current.data) {
-                current.rightChild = newNode;
+            if (newNode.data > parent.data) {
+                parent.rightChild = newNode;
             } else {
-                current.leftChild = newNode;
+                parent.leftChild = newNode;
             }
         }
         //3.利用旋转操作将其修正为一颗红黑树

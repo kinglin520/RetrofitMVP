@@ -1,6 +1,11 @@
 package com.example.dream.retrofitrxjavaokhttpdemo.ui;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,12 +44,13 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().hide();
+//        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -54,6 +60,8 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
 
     @Override
     protected void initView() {
+//        Glide.with(this).load(getResources().getDrawable(R.drawable.timg)).into(ivGirl);
+
         //文字图片
         final ImageView iv1 = new ImageView(this);
         iv1.setImageResource(R.mipmap.lead_arrows_2);
@@ -65,21 +73,21 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
         iv2.setImageResource(R.mipmap.lead_icon_pose);
         RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         iv2.setLayoutParams(params2);
-        guideView = GuideView.Builder
-                .newInstance(this)
-                .setTargetView(btnDesc)
-                .setOffset(0,80)
-                .setShape(GuideView.MyShape.CIRCULAR)
-                .setRadius(150)
-                .setContain(false)
-                .setBgColor(getResources().getColor(R.color.half_transparent))
-                .setOnclickListener(new GuideView.OnClickCallback() {
-                    @Override
-                    public void onClickedGuideView() {
-                        guideView.hide();
-                    }
-                }).build();
-        guideView.show();
+//        guideView = GuideView.Builder
+//                .newInstance(this)
+//                .setTargetView(btnDesc)
+//                .setOffset(0, 80)
+//                .setShape(GuideView.MyShape.CIRCULAR)
+//                .setRadius(150)
+//                .setContain(false)
+//                .setBgColor(getResources().getColor(R.color.half_transparent))
+//                .setOnclickListener(new GuideView.OnClickCallback() {
+//                    @Override
+//                    public void onClickedGuideView() {
+//                        guideView.hide();
+//                    }
+//                }).build();
+//        guideView.show();
 
         findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,9 +111,9 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
 
             String tt = "你好";
 
-            int tt2 = ((int)tt.charAt(0))%4;
+            int tt2 = ((int) tt.charAt(0)) % 4;
 
-            Toast.makeText(this, tt+" "+tt.charAt(0)+" " +((int)tt.charAt(0))+" "+tt2, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, tt + " " + tt.charAt(0) + " " + ((int) tt.charAt(0)) + " " + tt2, Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -121,5 +129,22 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
 //        guideView.show();
 
         mPresenter.getGirlInfo(String.valueOf(pageIndex++));
+    }
+
+    @OnClick(R.id.test2)
+    public void onHFClick(View view) {
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        getDelegate().setLocalNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ?
+                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
+        SharedPreferences s = getSharedPreferences("mypreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = s.edit();
+        editor.putBoolean("night", currentNightMode == Configuration.UI_MODE_NIGHT_NO);
+        editor.commit();
+        recreate();
+//        startActivity(new Intent(this,MainActivity.class));
+//        finish();
+
     }
 }

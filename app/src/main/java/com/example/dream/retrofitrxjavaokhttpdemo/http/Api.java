@@ -5,6 +5,7 @@ import com.example.dream.retrofitrxjavaokhttpdemo.base.BaseApplication;
 import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseBean;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.config.ApiConfig;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.config.RequestConfig;
+import com.example.dream.retrofitrxjavaokhttpdemo.http.config.RequestString;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
@@ -114,6 +115,11 @@ public class Api {
         return mRequestConfig;
     }
 
+    public static RequestString observable2(Observable observable) {
+        RequestString mRequestConfig = new RequestString();
+        mRequestConfig.observable(observable);
+        return mRequestConfig;
+    }
     /**
      * 设置Api的配置类，该方法请在Application中调用
      *

@@ -1,5 +1,6 @@
 package com.example.test.sort;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Sort {
@@ -16,6 +17,24 @@ public class Sort {
             for (int j = 0; j < count - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
                     swap(arr, j, j + 1);
+                }
+            }
+        }
+        return arr;
+    }
+
+    /**
+     * 选择排序
+     */
+    public static int[] selectSort(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return null;
+        }
+        int count = arr.length;
+        for (int i = 0; i < count; i++) {
+            for (int j = i + 1; j < count; j++) {
+                if (arr[i] > arr[j]) {
+                    swap(arr, i, j);
                 }
             }
         }
@@ -206,14 +225,13 @@ public class Sort {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{5, 7, 30, 9876};
+        int[] arr = new int[]{3, 2, 4, 1,7,6,5};
 //        for (int i : shellKnuthSort(arr)) {
 //            System.out.print(i + ",");
 //        }
-//        quickSort(arr, 0, arr.length - 1);
+        quickSort(arr, 0, arr.length - 1);
 //        System.out.print(Arrays.toString(arr));
         int[] brr = new int[]{3, 8, 44, 1234};
-
-        System.out.print(Arrays.toString(mergeSort(arr, brr)));
+        System.out.print(Arrays.toString(arr));
     }
 }

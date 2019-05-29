@@ -85,9 +85,9 @@ public class PrintMinArray {
 
     public static void main(String[] args) {
         int[] input = new int[]{332, 32, 321};
-        for (String s : orderArray(input)) {
-//            System.out.print(s);
-        }
+//        for (String s : orderArray(input)) {
+////            System.out.print(s);
+//        }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i : orderSort(input)) {
             stringBuilder.append(i);

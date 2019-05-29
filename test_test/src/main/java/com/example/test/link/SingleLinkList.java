@@ -68,6 +68,18 @@ public class SingleLinkList {
         return null;
     }
 
+    public Node find2(Object object){
+        Node current = head;
+        while (current != null){
+            if(current.data.equals(object)){
+                return current;
+            }else {
+                current = current.nextNode;
+            }
+        }
+        return null;
+    }
+
     /**
      * 删除指定节点
      */

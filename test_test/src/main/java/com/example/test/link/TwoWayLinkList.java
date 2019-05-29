@@ -9,78 +9,123 @@ public class TwoWayLinkList {
     private int size;
 
     private class Node {
-        private Object data;
+        private int data;
         private Node next;
         private Node pre;
 
-        public Node(Object data) {
+        public Node(int data) {
             this.data = data;
             next = null;
             pre = null;
         }
     }
 
-    private void addHead(Object value) {
+    private void addHead(int value) {
         Node newNode = new Node(value);
         if (size == 0) {
             head = newNode;
             tail = newNode;
             size++;
         } else {
-            head.pre = newNode;
             newNode.next = head;
+            head.pre = newNode;
             head = newNode;
             size++;
         }
     }
 
-    private void addTail(Object value) {
+//    private void addTail(int value) {
+//        Node newNode = new Node(value);
+//        if (size == 0) {
+//            head = newNode;
+//            tail = newNode;
+//            size++;
+//        } else {
+//            newNode.pre = tail;
+//            tail.next = newNode;
+//            tail = newNode;
+//            size++;
+//        }
+//    }
+
+    //在链表尾增加节点
+    public void addTail(int value) {
         Node newNode = new Node(value);
         if (size == 0) {
             head = newNode;
             tail = newNode;
             size++;
         } else {
-            tail.next = newNode;
             newNode.pre = tail;
+            tail.next = newNode;
             tail = newNode;
             size++;
         }
     }
 
     private void deleteHead() {
-        head.data = null;
+        head.data = -1;
         head = head.next;
         size--;
 
     }
 
     private void deleteTail() {
-        tail.data = null;
+        tail.data = -1;
         tail = tail.pre;
         size--;
     }
 
     private void display() {
         Node current = head;
-        while (current != null && current.data != null) {
+        while (current != null && current.data >= 0) {
             System.out.print(current.data + ",");
             current = current.next;
         }
     }
 
+    private static void quickSort(Node head, Node tail) {
+        if (head == null || tail == null || head == tail || head.next == tail) {
+            return;
+        }
+        if (head != tail) {
+            Node mid = getMid(head, tail);
+            quickSort(head, mid);
+            quickSort(mid.next, tail);
+        }
+    }
+
+    private static Node getMid(Node start, Node end) {
+        int base = start.data;
+        while (start != end) {
+            while (start != end && base <= end.data) {
+                end = end.pre;
+            }
+            start.data = end.data;
+            while (start != end && base >= start.data) {
+                start = start.next;
+            }
+            end.data = start.data;
+        }
+        start.data = base;
+        return start;
+    }
+
     public static void main(String[] args) {
         TwoWayLinkList twoWayLinkList = new TwoWayLinkList();
-        twoWayLinkList.addHead(1);
-        twoWayLinkList.addHead(2);
-        twoWayLinkList.addHead(3);
-//        twoWayLinkList.display();
+        twoWayLinkList.addTail(3);
+        twoWayLinkList.addTail(2);
+        twoWayLinkList.addTail(9);
         twoWayLinkList.addTail(4);
+        twoWayLinkList.addTail(6);
         twoWayLinkList.addTail(5);
 //        twoWayLinkList.display();
-        twoWayLinkList.deleteHead();
+//        twoWayLinkList.deleteHead();
 //        twoWayLinkList.display();
-        twoWayLinkList.deleteTail();
+//        twoWayLinkList.deleteTail();
+
+
+        quickSort(twoWayLinkList.head, twoWayLinkList.tail);
         twoWayLinkList.display();
     }
 }
