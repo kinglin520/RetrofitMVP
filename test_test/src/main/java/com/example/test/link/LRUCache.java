@@ -41,7 +41,7 @@ public class LRUCache {
             // 缓存长度已满
             // 删除尾部节点
             if (map.size() >= capacity) {
-                map.remove(key);
+                map.remove(tail.key);
                 tail = tail.pre;
                 tail.next = null;
             }
@@ -106,6 +106,8 @@ public class LRUCache {
         lruCache.put("3", "l");
         lruCache.disPlay();
         lruCache.put("1", "H");
+        lruCache.put("4", "o");
+
         lruCache.disPlay();
 //        lruCache.put("4", "o");
 //        lruCache.put("5", "W");
