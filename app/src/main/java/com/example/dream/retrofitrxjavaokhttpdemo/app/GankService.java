@@ -20,7 +20,7 @@ public interface GankService {
     @POST("/api/user/getUser")
     Observable<BaseBean<UserInfoBean>> test(@Field("getuid") String uid);
 
-    @Cache(path = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/{page}")
+//    @Cache(path = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/{page}")
     @GET("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/{page}")
     Observable<BaseBean<List<GirlInfoBean>>> getGirlInfo(@Path("page") String page);
 

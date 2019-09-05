@@ -84,7 +84,7 @@ public class Api {
                 .connectTimeout(mApiConfig.getConnectTimeOut(), TimeUnit.MILLISECONDS)
                 .addInterceptor(logInterceptor)
                 .addInterceptor(new ParamsInterceptor())
-//                .cache(cache)
+                .cache(cache)
                 .build();
     }
 

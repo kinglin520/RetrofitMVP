@@ -59,6 +59,7 @@ public class ParamsInterceptor implements Interceptor {
         Response response;
 
         MediaType contentType;
+
         try {
             response = chain.proceed(originalRequest);
         } catch (Exception e) {

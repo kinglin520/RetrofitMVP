@@ -9,14 +9,15 @@ import java.lang.annotation.Target;
 /**
  * @Author wenlin
  * 缓存注解器
- *
+ * <p>
  * 两种使用方法：
  * ①在Service协议类里的方法上面@Cache(path = "接口参数TYPE（替换自己的）")
  * ②在Service协议类里的方法上面@Cache(path = "接口参数TYPE（替换自己的）", mode = true)*
  * 然后再你的Activity或者Fragment里面，找到对应的接口回调，在Error里面如下写
- *      //加载数据，参考你的onSuccess里面的代码
- *
+ * //加载数据，参考你的onSuccess里面的代码
+ * <p>
  * 注：第二种方法，当你需要对缓存数据特殊处理时，或者产品对你提出了一些很优秀（二）的需求，可以采用，备用方法
+ * (⚠️仅支持url为常量的服务请求)
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
