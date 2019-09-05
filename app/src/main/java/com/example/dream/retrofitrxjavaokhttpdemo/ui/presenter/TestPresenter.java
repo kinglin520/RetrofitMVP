@@ -28,7 +28,7 @@ public class TestPresenter extends BasePresenter<TestContract> {
             }
 
             @Override
-            protected void _onError(ErrorType errorType, int errorCode, String message, UserInfoBean data) {
+            protected void _onError(ErrorType errorType, int errorCode, String message, String data) {
                 mView.showErrorTip(errorType, errorCode, message);
             }
         });
@@ -44,7 +44,7 @@ public class TestPresenter extends BasePresenter<TestContract> {
             }
 
             @Override
-            protected void _onError(ErrorType errorType, int errorCode, String message, List<GirlInfoBean> data) {
+            protected void _onError(ErrorType errorType, int errorCode, String message, String data) {
                 mView.showErrorTip(errorType, errorCode, message);
             }
         });

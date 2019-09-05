@@ -3,14 +3,15 @@ package com.example.dream.retrofitrxjavaokhttpdemo.base.rx;
 
 import android.text.TextUtils;
 
-import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseActivity;
 import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseBean;
-import com.example.dream.retrofitrxjavaokhttpdemo.base.ui.BaseFragment;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.config.RequestConfig;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.error.ApiException;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.error.ErrorCode;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.error.ErrorType;
 import com.example.dream.retrofitrxjavaokhttpdemo.http.error.ExceptionConverter;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -20,6 +21,10 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import okio.Buffer;
+import okio.BufferedSource;
+import retrofit2.HttpException;
 
 /**
  * des:订阅封装
@@ -32,7 +37,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
      */
     private static GlobalErrorListener mGlobalErrorListener;
 
-//    public BaseActivity mActivity;
+    //    public BaseActivity mActivity;
 //    public BaseFragment mFragment;
     private RequestConfig<R, T> mRequestConfig;
     private Disposable mDisposable;
@@ -44,6 +49,10 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
      * 服务器错误码的data，向_onError()方法传递
      */
     private R mErrorData;
+    /**
+     * 缓存数据
+     */
+    private String cacheData;
     /**
      * JavaBean的Message字段的信息
      */
@@ -64,36 +73,48 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
      */
     public void doSubscribe(Observable<T> observable) {
         observable.flatMap(new Function<T, ObservableSource<R>>() {
-                    @Override
-                    public ObservableSource<R> apply(T t) throws Exception {
+            @Override
+            public ObservableSource<R> apply(T t) throws Exception {
 
-                        mSuccessMessage = t.getMessage();
-                        mErrorData = t.getData();
-                        if (t.getStatus() == ErrorCode.CODE_SERVER_SUCCESS) {
-                            return Observable.just(t.getData());
-                            //成功直接返回数据
+                mSuccessMessage = t.getMessage();
+                mErrorData = t.getData();
+                if (t.getStatus() == ErrorCode.CODE_SERVER_SUCCESS) {
+                    return Observable.just(t.getData());
+                    //成功直接返回数据
 
-                        }
-                        //返回非1000的错误码
-                        else if (mRequestConfig != null &&
-                                !TextUtils.isEmpty(mRequestConfig.getAsSuccessCondition())
-                                && mRequestConfig.getAsSuccessCondition().contains(t.getStatus() + "")) {
-                            //成功直接返回数据
-                            return Observable.just(t.getData());
+                }
+                //返回非1000的错误码
+                else if (mRequestConfig != null &&
+                        !TextUtils.isEmpty(mRequestConfig.getAsSuccessCondition())
+                        && mRequestConfig.getAsSuccessCondition().contains(t.getStatus() + "")) {
+                    //成功直接返回数据
+                    return Observable.just(t.getData());
 
-                        } else {
-                            Throwable mThrowable = new Throwable("接口返回了错误业务码-----" + t.getStatus());
+                } else {
+                    Throwable mThrowable = new Throwable("接口返回了错误业务码-----" + t.getStatus());
 
-                            throw new ApiException(t.getStatus(), ErrorType.ERROR_API, t.getMessage(), mThrowable);
-                        }
-                    }
-                }).
-                subscribeOn(Schedulers.io()).
+                    throw new ApiException(t.getStatus(), ErrorType.ERROR_API, t.getMessage(), mThrowable);
+                }
+            }
+        }).subscribeOn(Schedulers.io()).
                 unsubscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 onErrorResumeNext(new Function<Throwable, ObservableSource<? extends R>>() {
                     @Override
                     public ObservableSource<? extends R> apply(Throwable throwable) throws Exception {
+                        if (throwable instanceof HttpException) {
+                            ResponseBody body = ((HttpException) throwable).response().errorBody();
+                            if (body.contentLength() > 0) {
+                                try {
+                                    BufferedSource source = body.source();
+                                    source.request(Long.MAX_VALUE); // Buffer the entire body.
+                                    Buffer buffer = source.buffer();
+                                    cacheData = buffer.clone().readString(Charset.forName("UTF-8"));
+                                } catch (IOException IOe) {
+                                    IOe.printStackTrace();
+                                }
+                            }
+                        }
                         return Observable.error(ExceptionConverter.convertException(throwable));
                     }
                 }).
@@ -131,7 +152,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 //                    LogUtils.d("401错误----" + exception.getMessage());
                 }
 
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
+                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), cacheData);
             } else if (exception.getCode() == ErrorCode.CODE_SERVER_9105) {
 //                LogUtils.e("LogOut---CODE_SERVER_9105");
 
@@ -140,7 +161,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
 //                    LogUtils.d("9105错误----" + exception.getMessage());
                 }
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
+                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), cacheData);
             } else if (exception.getCode() == ErrorCode.CODE_SERVER_9107) {
 //                LogUtils.e("LogOut---CODE_SERVER_9107");
 
@@ -149,7 +170,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
 //                    LogUtils.d("9107错误----" + exception.getMessage());
                 }
-                _onError(exception.getErrorType(), exception.getCode(), "9107", mErrorData);
+                _onError(exception.getErrorType(), exception.getCode(), "9107", cacheData);
             } else if (exception.getCode() == ErrorCode.CODE_SERVER_9108) {
 //                LogUtils.e("LogOut---CODE_SERVER_9108");
 
@@ -158,7 +179,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
 //                    LogUtils.d("9108错误----" + exception.getMessage());
                 }
-                _onError(exception.getErrorType(), exception.getCode(), "9108", mErrorData);
+                _onError(exception.getErrorType(), exception.getCode(), "9108", cacheData);
             } else if (exception.getCode() == ErrorCode.CODE_SERVER_9109) {
 //                LogUtils.e("LogOut---CODE_SERVER_9109");
 
@@ -167,15 +188,15 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
 //                    LogUtils.d("9108错误----" + exception.getMessage());
                 }
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
+                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), cacheData);
             } else {  //正常错误回调
 
                 //向错误回调传递data字段数据
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
+                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), cacheData);
             }
 
         } else {
-            _onError(ErrorType.ERROR_UNKNOWN, ErrorCode.CODE_UNKNOWN, "未知错误", mErrorData);
+            _onError(ErrorType.ERROR_UNKNOWN, ErrorCode.CODE_UNKNOWN, "未知错误", cacheData);
         }
     }
 
@@ -238,6 +259,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
     protected abstract void _onSuccess(R r, String successMessage);
 
 
-    protected abstract void _onError(ErrorType errorType, int errorCode, String message, R data);
+    protected abstract void _onError(ErrorType errorType, int errorCode, String message, String data);
 
 }
