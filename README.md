@@ -43,5 +43,5 @@
         Api.setConfig(apiConfig);
 ```
 
-### 2.封装MVP基类；
-### 3.@Cache数据缓存；
+### 2.封装MVP基类
+### 3.@Cache数据缓存
