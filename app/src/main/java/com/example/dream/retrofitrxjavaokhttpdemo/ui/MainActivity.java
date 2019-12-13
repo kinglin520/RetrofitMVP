@@ -1,6 +1,7 @@
 package com.example.dream.retrofitrxjavaokhttpdemo.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -48,6 +49,8 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
     ImageView ivGirl;
     @BindView(R.id.tree)
     Button btnTree;
+    @BindView(R.id.bt_slide)
+    Button btSlide;
 
     private int pageIndex = 1;
     private GuideView guideView;
@@ -107,6 +110,13 @@ public class MainActivity extends BaseActivity<TestPresenter> implements TestCon
             @Override
             public void onClick(View view) {
                 ARouter.getInstance().build("/test_test/MainActivity").navigation();
+            }
+        });
+
+        btSlide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SlideImageActivity.class));
             }
         });
     }
