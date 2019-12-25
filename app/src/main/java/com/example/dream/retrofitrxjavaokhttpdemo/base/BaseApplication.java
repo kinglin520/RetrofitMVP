@@ -14,9 +14,13 @@ import com.example.dream.retrofitrxjavaokhttpdemo.http.config.ApiConfig;
 public class BaseApplication extends Application {
     private static BaseApplication baseApplication;
 
+//    private static RefWatcher refWatcher;
+
     public static BaseApplication getApplication() {
         return baseApplication;
     }
+
+
 
     @Override
     public void onCreate() {

@@ -1,4 +1,4 @@
-package com.example.dream.retrofitrxjavaokhttpdemo.eventbug;
+package com.example.dream.retrofitrxjavaokhttpdemo.eventbus;
 
 /**
  * eventbus 通知回调函数

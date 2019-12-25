@@ -56,4 +56,13 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:4.1.8'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 
+
+    // Android组件库，里面定义了例如RxAppCompatActivity、RxActivity、RxFragment之类的Android组件
+    api ('com.trello.rxlifecycle2:rxlifecycle-components:2.2.1')
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:2.0.0'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:2.0.0'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:2.0'
+
+    api 'com.hyman:flowlayout-lib:1.1.2'
+
 }

@@ -1,4 +1,4 @@
-package com.example.dream.retrofitrxjavaokhttpdemo.eventbug;
+package com.example.dream.retrofitrxjavaokhttpdemo.eventbus;
 
 import android.util.SparseArray;
 

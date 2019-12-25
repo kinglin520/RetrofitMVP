@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:layout_margin="5dp">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textview_recyelerview_add_item_my"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:text="News"
+            android:background="@color/baise"/>
+        <ImageView
+            android:id="@+id/imageView_recyclerview_add_itme_my"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@mipmap/shanchu"
+            android:layout_gravity="right"/>
+    </FrameLayout>
+</LinearLayout>
