@@ -4,11 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
-//    public RxManager mRxManager;
+    //    public RxManager mRxManager;
     public T mPresenter;
 
     @Override
@@ -25,6 +24,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 //        }
 //        initPresenter();
         initView();
+        if (mPresenter != null) {
+            getLifecycle().addObserver(mPresenter);
+        }
     }
 
     /**
@@ -37,6 +39,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onViewDestory(this);
+//        mPresenter.onViewDestory(this);
     }
 }

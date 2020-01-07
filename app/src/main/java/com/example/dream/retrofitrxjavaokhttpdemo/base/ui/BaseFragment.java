@@ -24,6 +24,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 //        }
 //        initPresenter();
         initView();
+        if (mPresenter != null) {
+            getLifecycle().addObserver(mPresenter);
+        }
     }
 
     /**
@@ -36,6 +39,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.onViewDestory(this);
+//        mPresenter.onViewDestory(this);
     }
 }

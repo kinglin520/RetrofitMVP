@@ -95,6 +95,10 @@ public class TwoWayLinkList {
         }
     }
 
+    /**
+     * 双向链表快速排序
+     * 核心思想：1、同数组快速排序思路2、只交换节点值，不交换节点3、顺序：小的放左边 再大的放右边
+     */
     private static Node getMid(Node start, Node end) {
         int base = start.data;
         while (start != end) {

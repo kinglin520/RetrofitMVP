@@ -1,5 +1,10 @@
 package com.example.base.test.treenode;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
+
 public class BinaryTree implements Tree {
     //表示根节点
     private Node root;
@@ -113,7 +118,7 @@ public class BinaryTree implements Tree {
         }
     }
 
-    //前序遍历
+    //前序遍历(二叉树的深度优先遍历)
     public void preOrder(Node current) {
         if (current != null) {
             System.out.print(current.data + " ");
@@ -129,6 +134,55 @@ public class BinaryTree implements Tree {
             postOrder(current.rightChild);
             System.out.print(current.getColor() + " ");
         }
+    }
+
+    /**
+     * 二叉树的深度优先遍历
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> dfs(Node root) {
+        Stack<Node> stack = new Stack<Node>();
+        List<Integer> list = new LinkedList<Integer>();
+
+        if (root == null)
+            return list;
+        //压入根节点
+        stack.push(root);
+        //然后就循环取出和压入节点，直到栈为空，结束循环
+        while (!stack.isEmpty()) {
+            Node t = stack.pop();
+            if (t.rightChild != null)
+                stack.push(t.rightChild);
+            if (t.leftChild != null)
+                stack.push(t.leftChild);
+            list.add(t.data);
+        }
+        return list;
+
+    }
+
+
+    /**
+     * 二叉树的广度优先遍历 （从上往下（所在行遍历完 下一行）从左往右 ）
+     */
+    public List<Integer> bfs(Node root) {
+        Queue<Node> queue = new LinkedList<Node>();
+        List<Integer> list = new LinkedList<Integer>();
+
+        if (root == null)
+            return list;
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node t = queue.poll();
+            if (t.leftChild != null)
+                queue.add(t.leftChild);
+            if (t.rightChild != null)
+                queue.add(t.rightChild);
+            list.add(t.data);
+        }
+        return list;
     }
 
     //找到最大值
@@ -399,7 +453,15 @@ public class BinaryTree implements Tree {
         }
     }
 
-
+    /**
+     * *        3                   p
+     * *       / \                 /
+     * *      2  7                 x
+     * *        / \
+     * 4  8
+     * \
+     * 5
+     */
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
         bt.insert(3);
@@ -407,6 +469,8 @@ public class BinaryTree implements Tree {
         bt.insert(7);
         bt.insert(4);
         bt.insert(5);
+        bt.insert(8);
+
 //        bt.insert(8);
 //        bt.insert(9);
 //        bt.insert(4);
@@ -429,17 +493,27 @@ public class BinaryTree implements Tree {
 //        bt.postOrder(bt.root);
         System.out.print("先序遍历二叉树：");
         bt.preOrder(bt.root);
-        bt.mirror(bt.root);
+//        bt.mirror(bt.root);
         System.out.print("先序遍历翻转二叉树：");
         bt.preOrder(bt.root);
 
-        int n = 5;
-        int i = n - 1;
-        while (i > 0) {
-            n = n * i;
-            i--;
+//        int n = 5;
+//        int i = n - 1;
+//        while (i > 0) {
+//            n = n * i;
+//            i--;
+//        }
+//        System.out.print("n! =" + n);
+        System.out.print("深度优先搜索1: ");
+        bt.preOrder(bt.root);
+        System.out.print("2: ");
+        for (Integer i : bt.dfs(bt.root)) {
+            System.out.print(i + " ");
         }
-        System.out.print("n! =" + n);
 
+        System.out.print("广度优先搜索1: ");
+        for (Integer j : bt.bfs(bt.root)) {
+            System.out.print(j + " ");
+        }
     }
 }
