@@ -70,6 +70,7 @@ public class Api {
      */
     private static final String CACHE_CONTROL_AGE = "max-age=0";
 
+
     public static OkHttpClient getOkHttpClient() {
         //Log拦截器
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
@@ -87,6 +88,7 @@ public class Api {
                 .cache(cache)
                 .build();
     }
+
 
     private static Retrofit getRetrofit() {
         if (mRetrofit == null) {
